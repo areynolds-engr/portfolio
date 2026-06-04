@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amir Reynolds | Full Page Portfolio</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+:root {
+  --bg: #e2e8f0;
+  --ink: #12213a;
+  --muted: #526174;
+  --soft: #f8fafc;
+  --panel: #ffffff;
+  --line: #cbd5e1;
+  --accent: #005a9c;
+  --accent-soft: rgba(0, 90, 156, 0.1);
+  --shadow: 0 20px 50px rgba(27, 42, 74, 0.12);
+  --radius: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #101827;
+  --ink: #f8fafc;
+  --muted: #cbd5e1;
+  --soft: #172033;
+  --panel: #1f2937;
+  --line: #334155;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.13);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+.theme-toggle { position: fixed; top: 18px; right: 18px; z-index: 30; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--muted); box-shadow: var(--shadow); display: inline-flex; align-items: center; justify-content: center; font-size: 19px; cursor: pointer; }
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+.site-nav { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.nav-inner { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 14px; }
+.brand { font-weight: 700; letter-spacing: 0.02em; color: var(--ink); margin-right: auto; }
+.nav-link { font-size: 13px; color: var(--muted); padding: 8px 10px; border-radius: 6px; }
+.nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+
+.hero { min-height: 88vh; display: grid; align-items: center; padding: 56px 24px 34px; }
+.hero-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: center; width: 100%; }
+.eyebrow { color: var(--accent); font-size: 16px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.hero h1 { font-size: clamp(44px, 8vw, 92px); line-height: 0.95; letter-spacing: -0.04em; max-width: 820px; }
+.hero-copy { color: var(--muted); font-size: 18px; line-height: 1.75; max-width: 660px; margin: 24px 0 28px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: var(--radius); padding: 11px 16px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.btn.primary { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(27, 42, 74, 0.1); }
+.portrait-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; box-shadow: var(--shadow); }
+.portrait-panel img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 24%; border-radius: var(--radius); display: block; }
+.quick-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.fact { background: var(--soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }
+.fact strong { display: block; font-size: 18px; color: var(--ink); }
+.fact span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+.section { max-width: 1180px; margin: 0 auto; padding: 70px 24px; }
+.section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 24px; }
+.section-title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.section-kicker { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+.section h2 { font-size: clamp(30px, 4vw, 48px); letter-spacing: -0.03em; }
+.section-intro { max-width: 520px; color: var(--muted); line-height: 1.7; }
+
+.project-controls { display: none; grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.project-controls.active { display: grid; }
+.filter-field { display: grid; gap: 6px; }
+.filter-field label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.filter-field select { width: 100%; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: var(--radius); padding: 10px 12px; font: inherit; }
+.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.project-card { position: relative; overflow: hidden; text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 14px 34px rgba(27, 42, 74, 0.08); padding: 18px; cursor: pointer; color: var(--ink); min-height: 100%; transition: transform 0.16s, box-shadow 0.16s, border-color 0.16s; }
+.project-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
+.project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.show-all-card { background: var(--accent-soft); border-style: dashed; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; min-height: 260px; }
+.show-all-card i { color: var(--accent); font-size: 42px; }
+.show-all-card strong { font-size: 20px; }
+.show-all-card span { color: var(--muted); font-size: 14px; line-height: 1.5; max-width: 220px; }
+.project-card-media { position: relative; height: 260px; background: linear-gradient(135deg, var(--soft), var(--panel)); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 14px; display: grid; place-items: center; overflow: hidden; }
+.project-card-media .media-image-wrap { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; }
+.project-card-media .media-image-wrap::before { content: ""; position: absolute; inset: -18px; background-image: var(--media-bg); background-size: cover; background-position: var(--media-position, center); filter: blur(18px); opacity: 0.28; transform: scale(1.08); }
+.project-card-media img { position: absolute; inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); object-fit: contain; object-position: var(--media-position, center); display: block; }
+.project-card-media .media-image-wrap img { z-index: 1; }
+.project-card-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--media-position, center); display: block; }
+.project-card-media i { color: var(--accent); font-size: 48px; }
+.project-label { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.project-card h3 { font-size: 20px; margin-bottom: 8px; letter-spacing: -0.02em; }
+.project-card p { color: var(--muted); line-height: 1.6; font-size: 14px; margin-bottom: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+.tag { font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; color: var(--muted); background: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; }
+.project-detail { display: none; margin-top: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+.project-detail.active { display: grid; grid-template-columns: 0.85fr 1.15fr; }
+.detail-media { background: var(--soft); border-right: 1px solid var(--line); padding: 16px; display: grid; gap: 12px; align-content: start; }
+.detail-media img, .detail-media video { width: 100%; max-height: 330px; object-fit: contain; object-position: var(--media-position, center); border-radius: var(--radius); background: var(--soft); border: 1px solid var(--line); }
+.detail-media img { cursor: zoom-in; transition: transform 0.16s, border-color 0.16s; }
+.detail-media img:hover { transform: scale(1.01); border-color: var(--accent); }
+.detail-content { padding: clamp(22px, 4vw, 34px); }
+.detail-content h3 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.03em; margin-bottom: 12px; }
+.detail-content p { color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+.detail-grid { display: grid; gap: 16px; margin-top: 18px; }
+.detail-block { border-top: 1px solid var(--line); padding-top: 16px; }
+.detail-block h4 { font-size: 13px; margin-bottom: 8px; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+.detail-block ul { padding-left: 18px; color: var(--muted); line-height: 1.65; font-size: 14px; }
+.detail-block p { color: var(--muted); line-height: 1.7; font-size: 14px; }
+.detail-close { margin-bottom: 16px; }
+
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.skill-card, .contact-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: 0 12px 30px rgba(27, 42, 74, 0.08); }
+.skill-card h3 { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+.skill-card p { color: var(--muted); line-height: 1.7; font-size: 14px; }
+.skill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.skill-pill { font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; color: var(--ink); background: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 6px 9px; }
+
+.lightbox { position: fixed; inset: 0; z-index: 20; display: none; align-items: center; justify-content: center; padding: 28px; background: rgba(10, 18, 32, 0.86); }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: min(1100px, 94vw); max-height: 86vh; object-fit: contain; border-radius: var(--radius); background: var(--panel); box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35); }
+.lightbox-close { position: absolute; top: 18px; right: 18px; }
+
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.contact-card { display: flex; align-items: center; gap: 12px; }
+.contact-icon { width: 42px; height: 42px; border-radius: var(--radius); background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-size: 20px; flex: 0 0 auto; }
+.contact-label { color: var(--muted); font-size: 12px; margin-bottom: 3px; }
+.contact-value { color: var(--ink); font-size: 14px; overflow-wrap: anywhere; }
+
+.footer { max-width: 1180px; margin: 0 auto; padding: 36px 24px 52px; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 900px) {
+  .nav-inner { overflow-x: auto; }
+  .hero-grid, .project-detail.active, .contact-layout { grid-template-columns: 1fr; }
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
+  .project-controls { grid-template-columns: 1fr; }
+	  .detail-media { border-right: 0; border-bottom: 1px solid var(--line); }
+	  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .hero { padding-top: 34px; }
+  .nav-link { font-size: 12px; }
+	  .quick-facts, .skills-grid, .project-grid { grid-template-columns: 1fr; }
+  .section { padding: 48px 18px; }
+  .hero-grid, .nav-inner { padding-left: 0; padding-right: 0; }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle" type="button" aria-label="Switch to dark mode"><i class="ti ti-moon" aria-hidden="true"></i></button>
+<div class="lightbox" id="image-lightbox" onclick="closeLightbox()" aria-hidden="true">
+  <button class="btn lightbox-close" type="button" onclick="closeLightbox(event)" aria-label="Close expanded image"><i class="ti ti-x" aria-hidden="true"></i> Close</button>
+  <img id="lightbox-image" src="" alt="">
+</div>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">AR</a>
+    <a class="nav-link" href="#projects">Projects</a>
+    <a class="nav-link" href="#skills">Skills</a>
+    <a class="nav-link" href="#contact">Contact</a>
+    <a class="nav-link" href="documents/amir-reynolds-resume.pdf" target="_blank" rel="noopener">Resume</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Computer Engineering Portfolio</p>
+        <h1>Amir Reynolds</h1>
+        <p class="hero-copy">Computer Engineering graduate from Georgia Southern University showcasing hardware, software, AI, and sensor-based projects that connect code with real-world systems.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects"><i class="ti ti-layout-grid" aria-hidden="true"></i> View projects</a>
+          <a class="btn" href="documents/amir-reynolds-resume.pdf" target="_blank" rel="noopener"><i class="ti ti-download" aria-hidden="true"></i> Resume</a>
+          <a class="btn" href="#contact"><i class="ti ti-mail" aria-hidden="true"></i> Contact</a>
+        </div>
+      </div>
+      <aside class="portrait-panel">
+        <img src="images/profile-photo.jpeg" alt="Portrait of Amir Reynolds">
+        <div class="quick-facts">
+          <div class="fact"><strong>5+</strong><span>Projects</span></div>
+          <div class="fact"><strong>CE</strong><span>Graduate</span></div>
+          <div class="fact"><strong>ATL</strong><span>Location</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Selected Work</p>
+        <div class="section-title-row">
+          <h2>Projects</h2>
+          <button class="btn" type="button" onclick="showAllProjectCards(event)"><i class="ti ti-layout-grid-add" aria-hidden="true"></i> Show all</button>
+        </div>
+      </div>
+      <p class="section-intro">A full-page view of embedded systems, sensor integration, AI prototyping, and practical hardware builds.</p>
+    </div>
+
+    <div class="project-controls" id="project-controls" aria-label="Project filters">
+      <div class="filter-field">
+        <label for="category-filter">Project type</label>
+        <select id="category-filter" onchange="updateFilters()"></select>
+      </div>
+      <div class="filter-field">
+        <label for="skill-filter">Skill evidence</label>
+        <select id="skill-filter" onchange="updateFilters()"></select>
+      </div>
+    </div>
+    <div class="project-grid" id="project-grid"></div>
+
+    <article class="project-detail" id="project-detail" aria-live="polite">
+      <div class="detail-media" id="detail-media"></div>
+      <div class="detail-content">
+        <button class="btn detail-close" type="button" onclick="closeProjectDetail()"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back to projects</button>
+        <p class="project-label" id="detail-type"></p>
+        <h3 id="detail-title"></h3>
+        <p id="detail-summary"></p>
+        <div class="tags" id="detail-tags"></div>
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h4><i class="ti ti-target-arrow" aria-hidden="true"></i> Introduction</h4>
+            <p id="detail-problem"></p>
+          </div>
+          <div class="detail-block">
+            <h4><i class="ti ti-tools" aria-hidden="true"></i> Tools</h4>
+            <ul id="detail-tools"></ul>
+          </div>
+          <div class="detail-block">
+            <h4><i class="ti ti-chart-line" aria-hidden="true"></i> Results</h4>
+            <p id="detail-results"></p>
+          </div>
+          <div class="detail-block">
+            <h4><i class="ti ti-flag-check" aria-hidden="true"></i> Conclusion</h4>
+            <p id="detail-conclusion"></p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Technical Range</p>
+        <h2>Skills</h2>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card"><h3><i class="ti ti-code"></i> Programming Languages</h3><div class="skill-list"><span class="skill-pill">Python</span><span class="skill-pill">C++</span><span class="skill-pill">C</span><span class="skill-pill">Java</span><span class="skill-pill">SQL</span><span class="skill-pill">VHDL</span><span class="skill-pill">MIPS Assembly</span><span class="skill-pill">HTML</span><span class="skill-pill">CSS</span><span class="skill-pill">JavaScript</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-cpu"></i> Engineering & Embedded Systems</h3><div class="skill-list"><span class="skill-pill">Arduino IDE</span><span class="skill-pill">Quartus Prime Lite</span><span class="skill-pill">ModelSim</span><span class="skill-pill">MARS MIPS Simulator</span><span class="skill-pill">Multisim</span><span class="skill-pill">Wireshark</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-sparkles"></i> AI & Machine Learning</h3><div class="skill-list"><span class="skill-pill">OpenAI API</span><span class="skill-pill">GitHub Copilot</span><span class="skill-pill">Open WebUI</span><span class="skill-pill">Ollama</span><span class="skill-pill">MediaPipe</span><span class="skill-pill">OpenCV</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-terminal"></i> Software Development</h3><div class="skill-list"><span class="skill-pill">Visual Studio Code</span><span class="skill-pill">Git</span><span class="skill-pill">GitHub</span><span class="skill-pill">GitHub Pages</span><span class="skill-pill">Docker</span><span class="skill-pill">Flask</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-database"></i> Databases</h3><div class="skill-list"><span class="skill-pill">MySQL</span><span class="skill-pill">MySQL Workbench</span><span class="skill-pill">Firebase Basics</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-device-desktop"></i> Operating Systems & Platforms</h3><div class="skill-list"><span class="skill-pill">Raspberry Pi OS</span><span class="skill-pill">Linux</span><span class="skill-pill">Windows</span><span class="skill-pill">macOS</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-network"></i> Networking & Infrastructure</h3><div class="skill-list"><span class="skill-pill">Docker</span><span class="skill-pill">Local Web Servers</span><span class="skill-pill">REST APIs</span><span class="skill-pill">HTTP/HTTPS</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-tool"></i> Computer Engineering Tools</h3><div class="skill-list"><span class="skill-pill">Oscilloscope</span><span class="skill-pill">Function Generator</span><span class="skill-pill">Logic Analyzer</span><span class="skill-pill">DE10-Standard FPGA Tools</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-chip"></i> Microcontrollers</h3><div class="skill-list"><span class="skill-pill">Arduino Uno R3</span><span class="skill-pill">ESP32 Development Board</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-server"></i> Single-Board Computers</h3><div class="skill-list"><span class="skill-pill">Raspberry Pi 5</span><span class="skill-pill">Raspberry Pi 3</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-circuit-resistor"></i> FPGA Development</h3><div class="skill-list"><span class="skill-pill">DE10-Standard FPGA Board</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-radar"></i> Sensors</h3><div class="skill-list"><span class="skill-pill">Adafruit STEMMA Soil Sensor</span><span class="skill-pill">Capacitive Soil Moisture Sensors</span><span class="skill-pill">HC-SR04 Ultrasonic Distance Sensor</span><span class="skill-pill">Potentiometers</span><span class="skill-pill">Push Buttons</span><span class="skill-pill">DIP Switches</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-device-tv"></i> Displays & Output Devices</h3><div class="skill-list"><span class="skill-pill">Raspberry Pi Camera V2</span><span class="skill-pill">16x2 LCD Display</span><span class="skill-pill">4-Digit 7-Segment Display</span><span class="skill-pill">LEDs</span><span class="skill-pill">Servo Motors (SG90)</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-bolt"></i> Electronics & Test Equipment</h3><div class="skill-list"><span class="skill-pill">Breadboards</span><span class="skill-pill">Jumper Wires</span><span class="skill-pill">Resistors</span><span class="skill-pill">Capacitors</span><span class="skill-pill">Diodes</span><span class="skill-pill">BJTs (2N3904)</span><span class="skill-pill">MOSFETs</span><span class="skill-pill">JFETs</span></div></div>
+      <div class="skill-card"><h3><i class="ti ti-gauge"></i> Lab Equipment</h3><div class="skill-list"><span class="skill-pill">Oscilloscope</span><span class="skill-pill">Digital Multimeter</span><span class="skill-pill">Function Generator</span><span class="skill-pill">DC Power Supply</span></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Contact</p>
+        <h2>Let's connect</h2>
+      </div>
+      <p class="section-intro">Available for engineering, embedded systems, software, and hardware-focused opportunities.</p>
+    </div>
+    <div class="contact-layout">
+      <a class="contact-card" href="mailto:areynolds.engr@gmail.com"><div class="contact-icon"><i class="ti ti-mail"></i></div><div><div class="contact-label">Email</div><div class="contact-value">areynolds.engr@gmail.com</div></div></a>
+      <a class="contact-card" href="tel:4047981154"><div class="contact-icon"><i class="ti ti-phone"></i></div><div><div class="contact-label">Phone</div><div class="contact-value">404-798-1154</div></div></a>
+      <a class="contact-card" href="https://www.linkedin.com/in/amir-reynolds-34b8a7205" target="_blank" rel="noopener"><div class="contact-icon"><i class="ti ti-brand-linkedin"></i></div><div><div class="contact-label">LinkedIn</div><div class="contact-value">www.linkedin.com/in/amir-reynolds-34b8a7205</div></div></a>
+      <div class="contact-card"><div class="contact-icon"><i class="ti ti-map-pin"></i></div><div><div class="contact-label">Location</div><div class="contact-value">Atlanta, GA</div></div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Amir Reynolds · Computer Engineering Portfolio · <a href="documents/amir-reynolds-resume.pdf" target="_blank" rel="noopener">Download resume</a></p>
+</footer>
+
+<script>
+var projects = [
+  {
+    title: 'Servo Radar Scanner',
+    category: 'Embedded Systems',
+    type: 'Arduino · Embedded Systems',
+    summary: 'An Arduino-based radar scanning system using a servo motor and ultrasonic sensor. The system scans an area, detects objects, and displays object angle and distance on an LCD screen.',
+    problem: 'The project demonstrates how embedded hardware can combine motion control, distance sensing, and real-time display output to create a radar-style scanner.',
+    tags: ['Arduino', 'C++', 'HC-SR04', 'Servo Control', 'LCD1602'],
+    tools: ['Arduino Uno', 'HC-SR04 Ultrasonic Sensor', 'Servo Motor', 'LCD1602 Display', 'Breadboard', 'Jumper Wires'],
+    results: 'The system successfully rotated the ultrasonic sensor through a controlled scan range while continuously reading distance values from the HC-SR04 sensor. When an object was detected, the project displayed both the angle and distance on the LCD1602 screen, showing that the servo motion, sensor readings, and display output were working together as one real-time embedded system.',
+    conclusion: 'This project strengthened hands-on experience with Arduino programming, sensor integration, servo control, and user-readable hardware feedback.',
+    icon: 'ti-cpu',
+    media: [
+      { type: 'video', src: 'videos/servo-radar-scanner-demo.mov' },
+      { type: 'image', src: 'images/servo-radar-scanner.jpeg', alt: 'Servo Radar Scanner Arduino project setup', position: '50% 58%' },
+      { type: 'image', src: 'images/servo-radar-scanner-angle.jpeg', alt: 'Alternate angle of the Servo Radar Scanner wiring and sensor mount', position: '50% 50%' }
+    ]
+  },
+  {
+    title: 'Smart Weather Station',
+    category: 'Environmental Monitoring',
+    type: 'Arduino · Environmental Monitoring',
+    summary: 'An Arduino-based environmental monitoring system that measures real-time temperature and humidity data using a DHT11 sensor and LCD dashboard integration.',
+    problem: 'Environmental monitoring requires reliable sensor integration, stable readings, and real-time display updates without corrupted measurements or communication delays.',
+    tags: ['Arduino Uno', 'DHT11', 'LCD1602', 'Serial Monitor', 'Real-Time Data'],
+    tools: ['Arduino Uno', 'Arduino IDE', 'DHT11 Sensor', 'LCD1602 Display', 'Potentiometer', 'Breadboard', 'Jumper Wires', 'Serial Monitor'],
+    results: 'The weather station successfully monitored temperature and humidity conditions in real time and displayed stable live readings on the LCD interface. Serial monitor output also supported diagnostic testing, making it easier to confirm that the DHT11 sensor data was being collected, processed, and updated reliably during operation.',
+    conclusion: 'This project strengthened practical experience with digital sensors, embedded systems programming, and environmental data acquisition.',
+    icon: 'ti-cloud',
+    media: [
+      { type: 'image', src: 'images/smart-weather-station-2.jpeg', alt: 'Smart Weather Station close-up view', position: '50% 56%' },
+      { type: 'image', src: 'images/smart-weather-station-3.jpeg', alt: 'Smart Weather Station sensor and LCD layout', position: '50% 58%' },
+      { type: 'image', src: 'images/smart-weather-station-1.jpeg', alt: 'Smart Weather Station wiring and LCD display', position: '50% 58%' }
+    ]
+  },
+  {
+    title: 'Smart Parking Sensor',
+    category: 'Embedded Systems',
+    type: 'Arduino · Proximity Monitoring',
+    summary: 'An ultrasonic parking assistance system that measures object proximity and provides real-time visual distance feedback using LEDs and an LCD display.',
+    problem: 'Parking assistance systems rely on accurate distance measurement and fast feedback to help users avoid collisions in tight spaces.',
+    tags: ['HC-SR04', 'LED Indicators', 'LCD1602', 'Embedded Logic', 'Breadboard'],
+    tools: ['Arduino Uno', 'HC-SR04 Ultrasonic Sensor', 'LCD1602 Display', 'LEDs', '220 Ohm Resistors', 'Potentiometer', 'Breadboard', 'Jumper Wires'],
+    results: 'The parking sensor successfully detected nearby objects and updated the LCD with real-time distance values as the object moved closer or farther away. The LED indicators changed dynamically based on proximity, creating a simple but effective warning system that demonstrated embedded decision-making with sensor input and visual feedback.',
+    conclusion: 'This project improved understanding of sensor calibration, embedded logic design, and hardware integration.',
+    icon: 'ti-car',
+    media: [
+      { type: 'video', src: 'videos/smart-parking-sensor-demo.mov' },
+      { type: 'image', src: 'images/smart-parking-sensor-1.jpeg', alt: 'Smart Parking Sensor detecting a toy car with LCD distance output' },
+      { type: 'image', src: 'images/smart-parking-sensor-2.jpeg', alt: 'Smart Parking Sensor breadboard with ultrasonic sensor and LEDs' }
+    ]
+  },
+  {
+    title: 'IncomePilot Finance Advisor',
+    category: 'AI / Software',
+    type: 'AI Chatbot · Personal Finance',
+    summary: 'A personal finance advisor chatbot prototype that helps users create income, grow income, manage cash flow, and save through profile-based guidance.',
+    problem: 'Many people need practical guidance that connects income goals to real cash-flow numbers and turns monthly data into clear next steps.',
+    tags: ['AI Chatbot', 'JavaScript', 'HTML/CSS', 'Cash Flow', 'Rule-Based Advisor'],
+    tools: ['HTML', 'CSS', 'JavaScript', 'Financial profile inputs', 'Rule-based response logic', 'Advisor mode interface'],
+    results: 'The prototype created a working local advisor experience that connected user profile inputs to income, savings, and cash-flow guidance. It organized financial information into practical next steps, demonstrating how front-end state, rule-based logic, and advisor-style responses can work together in an early AI product concept.',
+    conclusion: 'This project demonstrates front-end product thinking, JavaScript state management, and an early architecture for an LLM-powered finance tool.',
+    icon: 'ti-sparkles',
+    media: [
+      { type: 'image', src: 'images/income-pilot-extra-500.png', alt: 'IncomePilot chatbot giving guidance on making extra income' },
+      { type: 'image', src: 'images/income-pilot-first-step.png', alt: 'IncomePilot chatbot giving cash flow guidance' }
+    ]
+  },
+  {
+    title: 'Plant Monitoring System',
+    category: 'Environmental Monitoring',
+    type: 'ESP32 · Environmental Monitoring',
+    summary: 'An ESP32-based plant monitoring system that tracks soil moisture and environmental conditions to help identify when a plant needs attention.',
+    problem: 'Plant care can become inconsistent when watering decisions are based only on appearance or memory instead of live moisture data. This project uses an ESP32-based monitoring setup to connect live sensor readings with a simple dashboard for plant care decisions.',
+    tags: ['ESP32', 'Soil Moisture Sensor', 'Sensor Integration', 'Web Dashboard', 'Embedded Systems'],
+    tools: ['ESP32 Development Board', 'Soil Moisture Sensor', 'Breadboard', 'Jumper Wires', 'Python dashboard logic', 'Local web dashboard'],
+    results: 'The ESP32 system provided live moisture feedback that could be used to make better watering decisions instead of relying only on appearance or memory. The dashboard view made the plant status easier to understand, while testing with different moisture levels helped calibrate the sensor readings into useful feedback for plant care.',
+    conclusion: 'The project reinforced sensor calibration, ESP32 data collection, and designing simple tools that turn raw readings into useful feedback.',
+    icon: 'ti-plant',
+    media: [
+      { type: 'image', src: 'images/plant-monitoring-plant.png', alt: 'Peace lily monitored by the plant monitoring system', position: '50% 48%' },
+      { type: 'image', src: 'images/plant-monitoring-esp32.png', alt: 'ESP32 development board wired for the plant monitoring system', position: '50% 50%' },
+      { type: 'image', src: 'images/plant-monitoring-dashboard.jpg', alt: 'Plant monitoring dashboard showing live moisture status and plant care controls', position: '50% 38%' },
+      { type: 'image', src: 'images/plant-monitoring-history.jpg', alt: 'Plant monitoring dashboard with moisture history chart', position: '50% 42%' }
+    ]
+  }
+];
+
+var maxPreviewCards = 6;
+var showAllProjects = false;
+var activeCategory = 'all';
+var activeSkill = 'all';
+
+function mediaMarkup(item, compact = false) {
+  if (!item) return '<i class="ti ti-cpu" aria-hidden="true"></i>';
+  const positionStyle = item.position ? ` style="--media-position: ${item.position}"` : '';
+  if (item.type === 'video') {
+    return compact
+      ? `<video src="${item.src}" muted preload="metadata"${positionStyle}></video>`
+      : `<video src="${item.src}" controls preload="metadata"${positionStyle}></video>`;
+  }
+  if (compact) {
+    const compactStyle = ` style="--media-bg: url('${item.src}');${item.position ? ` --media-position: ${item.position};` : ''}"`;
+    return `<span class="media-image-wrap"${compactStyle}><img src="${item.src}" alt="${item.alt || ''}"></span>`;
+  }
+  return `<img src="${item.src}" alt="${item.alt || ''}"${positionStyle} onclick="openLightbox(event, '${item.src}', '${(item.alt || '').replace(/'/g, '&#39;')}')">`;
+}
+
+function previewMedia(project) {
+  return project.media.find(item => item.type === 'image') || project.media[0];
+}
+
+function renderProjectCards() {
+  const filteredProjects = projects
+    .map((project, index) => ({ project, index }))
+    .filter(({ project }) => {
+      const categoryMatch = activeCategory === 'all' || project.category === activeCategory;
+      const skillMatch = activeSkill === 'all' || project.tags.includes(activeSkill) || project.tools.includes(activeSkill);
+      return categoryMatch && skillMatch;
+    });
+  const visibleProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, maxPreviewCards);
+  const shouldShowAllCard = !showAllProjects;
+
+  document.getElementById('project-controls').classList.toggle('active', showAllProjects);
+  const cardMarkup = visibleProjects.map(({ project, index }) => `
+    <button class="project-card" type="button" onclick="openProjectDetail(${index})">
+      <div class="project-card-media">${project.media.length ? mediaMarkup(previewMedia(project), true) : `<i class="ti ${project.icon}" aria-hidden="true"></i>`}</div>
+      <p class="project-label">${project.type}</p>
+      <h3>${project.title}</h3>
+      <p>${project.summary}</p>
+      <div class="tags">${project.tags.slice(0, 5).map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+    </button>
+  `).join('');
+  const showAllMarkup = shouldShowAllCard ? `
+    <button class="project-card show-all-card" type="button" onclick="showAllProjectCards(event)">
+      <i class="ti ti-layout-grid-add" aria-hidden="true"></i>
+      <strong>Show all</strong>
+      <span>Open the full project library and filter by skill evidence.</span>
+    </button>
+  ` : '';
+  document.getElementById('project-grid').innerHTML = cardMarkup + showAllMarkup;
+}
+
+function setupFilters() {
+  const categories = ['all', ...new Set(projects.map(project => project.category))];
+  const skills = ['all', ...new Set(projects.flatMap(project => [...project.tags, ...project.tools]))].sort((a, b) => {
+    if (a === 'all') return -1;
+    if (b === 'all') return 1;
+    return a.localeCompare(b);
+  });
+
+  document.getElementById('category-filter').innerHTML = categories.map(category => (
+    `<option value="${category}">${category === 'all' ? 'All project types' : category}</option>`
+  )).join('');
+  document.getElementById('skill-filter').innerHTML = skills.map(skill => (
+    `<option value="${skill}">${skill === 'all' ? 'All skills' : skill}</option>`
+  )).join('');
+}
+
+function updateFilters() {
+  activeCategory = document.getElementById('category-filter').value;
+  activeSkill = document.getElementById('skill-filter').value;
+  closeProjectDetail(false);
+  renderProjectCards();
+}
+
+function showAllProjectCards(event) {
+  if (event) event.stopPropagation();
+  showAllProjects = true;
+  activeCategory = 'all';
+  activeSkill = 'all';
+  closeProjectDetail(false);
+  setupFilters();
+  document.getElementById('category-filter').value = activeCategory;
+  document.getElementById('skill-filter').value = activeSkill;
+  renderProjectCards();
+  document.getElementById('project-controls').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openProjectDetail(index) {
+  const project = projects[index];
+  document.getElementById('project-grid').style.display = 'none';
+  const detail = document.getElementById('project-detail');
+  detail.classList.add('active');
+  document.getElementById('detail-media').innerHTML = project.media.length
+    ? project.media.map(item => mediaMarkup(item)).join('')
+    : `<div class="project-card-media"><i class="ti ${project.icon}" aria-hidden="true"></i></div>`;
+  document.getElementById('detail-type').textContent = project.type;
+  document.getElementById('detail-title').textContent = project.title;
+  document.getElementById('detail-summary').textContent = project.summary;
+  document.getElementById('detail-tags').innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+  document.getElementById('detail-problem').textContent = project.problem;
+  document.getElementById('detail-tools').innerHTML = project.tools.map(tool => `<li>${tool}</li>`).join('');
+  document.getElementById('detail-results').textContent = Array.isArray(project.results) ? project.results.join(' ') : project.results;
+  document.getElementById('detail-conclusion').textContent = project.conclusion;
+  detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeProjectDetail(scrollToProjects = true) {
+  document.getElementById('project-detail').classList.remove('active');
+  document.getElementById('project-grid').style.display = '';
+  if (scrollToProjects) {
+    document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function openLightbox(event, src, alt) {
+  event.stopPropagation();
+  const lightbox = document.getElementById('image-lightbox');
+  const image = document.getElementById('lightbox-image');
+  image.src = src;
+  image.alt = alt || 'Expanded project image';
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden', 'false');
+}
+
+function closeLightbox(event) {
+  if (event) event.stopPropagation();
+  const lightbox = document.getElementById('image-lightbox');
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+}
+
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem('portfolio-fullpage-theme', theme);
+  const toggle = document.getElementById('theme-toggle');
+  const isDark = theme === 'dark';
+  toggle.innerHTML = `<i class="ti ${isDark ? 'ti-sun' : 'ti-moon'}" aria-hidden="true"></i>`;
+  toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+}
+
+function toggleTheme() {
+  setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+}
+
+setTheme(localStorage.getItem('portfolio-fullpage-theme') || 'light');
+setupFilters();
+renderProjectCards();
+</script>
+</body>
+</html>
