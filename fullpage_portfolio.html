@@ -118,6 +118,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .skill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .skill-pill { font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; color: var(--ink); background: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 6px 9px; }
 
+.resume-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.resume-card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px; box-shadow: 0 12px 30px rgba(27, 42, 74, 0.08); display: grid; gap: 14px; align-content: start; }
+.resume-icon { width: 46px; height: 46px; border-radius: var(--radius); background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-size: 24px; }
+.resume-card h3 { font-size: 20px; letter-spacing: -0.02em; }
+.resume-card p { color: var(--muted); line-height: 1.65; font-size: 14px; }
+
 .lightbox { position: fixed; inset: 0; z-index: 20; display: none; align-items: center; justify-content: center; padding: 28px; background: rgba(10, 18, 32, 0.86); }
 .lightbox.active { display: flex; }
 .lightbox img { max-width: min(1100px, 94vw); max-height: 86vh; object-fit: contain; border-radius: var(--radius); background: var(--panel); box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35); }
@@ -138,13 +144,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
   .project-controls { grid-template-columns: 1fr; }
 	  .detail-media { border-right: 0; border-bottom: 1px solid var(--line); }
-	  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+	  .skills-grid, .resume-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 560px) {
   .hero { padding-top: 34px; }
   .nav-link { font-size: 12px; }
-	  .quick-facts, .skills-grid, .project-grid { grid-template-columns: 1fr; }
+	  .quick-facts, .skills-grid, .project-grid, .resume-grid { grid-template-columns: 1fr; }
   .section { padding: 48px 18px; }
   .hero-grid, .nav-inner { padding-left: 0; padding-right: 0; }
 }
@@ -154,7 +160,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle" type="button" aria-label="Switch to dark mode"><i class="ti ti-moon" aria-hidden="true"></i></button>
 <div class="lightbox" id="image-lightbox" onclick="closeLightbox()" aria-hidden="true">
   <button class="btn lightbox-close" type="button" onclick="closeLightbox(event)" aria-label="Close expanded image"><i class="ti ti-x" aria-hidden="true"></i> Close</button>
-  <img id="lightbox-image" src="" alt="">
+  <img id="lightbox-image" alt="">
 </div>
 
 <header class="site-nav">
@@ -163,7 +169,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     <a class="nav-link" href="#projects">Projects</a>
     <a class="nav-link" href="#skills">Skills</a>
     <a class="nav-link" href="#contact">Contact</a>
-    <a class="nav-link" href="documents/amir-reynolds-resume.pdf" target="_blank" rel="noopener">Resume</a>
+    <a class="nav-link" href="#resume">Resume</a>
   </div>
 </header>
 
@@ -176,7 +182,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
         <p class="hero-copy">Computer Engineering graduate from Georgia Southern University showcasing hardware, software, AI, and sensor-based projects that connect code with real-world systems.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#projects"><i class="ti ti-layout-grid" aria-hidden="true"></i> View projects</a>
-          <a class="btn" href="documents/amir-reynolds-resume.pdf" target="_blank" rel="noopener"><i class="ti ti-download" aria-hidden="true"></i> Resume</a>
+          <a class="btn" href="#resume"><i class="ti ti-download" aria-hidden="true"></i> Resume</a>
           <a class="btn" href="#contact"><i class="ti ti-mail" aria-hidden="true"></i> Contact</a>
         </div>
       </div>
@@ -271,6 +277,36 @@ button, a { -webkit-tap-highlight-color: transparent; }
     </div>
   </section>
 
+  <section class="section" id="resume">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Resume Options</p>
+        <h2>Choose a resume</h2>
+      </div>
+      <p class="section-intro">Select the version that best matches the role: computer engineering, ML/AI, or software engineering.</p>
+    </div>
+    <div class="resume-grid">
+      <article class="resume-card">
+        <div class="resume-icon"><i class="ti ti-cpu" aria-hidden="true"></i></div>
+        <h3>Computer Engineering</h3>
+        <p>Focused on embedded systems, hardware projects, computer engineering tools, and sensor-based builds.</p>
+        <a class="btn primary" href="documents/amir-reynolds-computer-engineering-resume.pdf" target="_blank" rel="noopener"><i class="ti ti-file-download" aria-hidden="true"></i> Open resume</a>
+      </article>
+      <article class="resume-card">
+        <div class="resume-icon"><i class="ti ti-sparkles" aria-hidden="true"></i></div>
+        <h3>ML / AI</h3>
+        <p>Focused on AI tools, machine learning projects, OpenAI API work, computer vision, and intelligent software prototypes.</p>
+        <a class="btn primary" href="documents/amir-reynolds-ml-ai-resume.pdf" target="_blank" rel="noopener"><i class="ti ti-file-download" aria-hidden="true"></i> Open resume</a>
+      </article>
+      <article class="resume-card">
+        <div class="resume-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
+        <h3>Software Engineering</h3>
+        <p>Focused on software development, Python, JavaScript, Flask, GitHub, Docker, web projects, and application workflows.</p>
+        <a class="btn primary" href="documents/amir-reynolds-software-engineering-resume.pdf" target="_blank" rel="noopener"><i class="ti ti-file-download" aria-hidden="true"></i> Open resume</a>
+      </article>
+    </div>
+  </section>
+
   <section class="section" id="contact">
     <div class="section-head">
       <div>
@@ -289,7 +325,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 </main>
 
 <footer class="footer">
-  <p>Amir Reynolds · Computer Engineering Portfolio · <a href="documents/amir-reynolds-resume.pdf" target="_blank" rel="noopener">Download resume</a></p>
+  <p>Amir Reynolds · Computer Engineering Portfolio · <a href="#resume">Choose resume</a></p>
 </footer>
 
 <script>
